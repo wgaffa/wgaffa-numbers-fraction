@@ -53,6 +53,12 @@ namespace Wgaffa.Numbers.Tests
         {
             Assert.That(fraction.ProperNumerator, Is.EqualTo(expected[3]));
         }
+
+        [TestCaseSource(typeof(StringFractionCases))]
+        public void ToString_ShouldReturnMixedFraction(Fraction fraction, string expected)
+        {
+            Assert.That(fraction.ToString(), Is.EqualTo(expected));
+        }
     }
 
     class SingleFractionCases : IEnumerable
@@ -66,6 +72,32 @@ namespace Wgaffa.Numbers.Tests
             yield return new object[] { new Fraction(8, 100), new int[] { 2, 25, 0, 2 } };
             yield return new object[] { new Fraction(5, 1), new int[] { 5, 1, 5, 0 } };
             yield return new object[] { new Fraction(87, 12), new int[] { 29, 4, 7, 1 } };
+
+
+            yield return new object[] { new Fraction(-5, 15), new int[] { 1, 3, 0, 1 } };
+            yield return new object[] { new Fraction(15, -30), new int[] { 1, 2, 0, 1 } };
+            yield return new object[] { new Fraction(-5, -15), new int[] { 1, 3, 0, 1 } };
+            yield return new object[] { new Fraction(-15, 3), new int[] { 5, 1, 5, 0 } };
+            yield return new object[] { new Fraction(-30, 8), new int[] { 15, 4, 3, 3 } };
+        }
+    }
+
+    class StringFractionCases : IEnumerable
+    {
+        public IEnumerator GetEnumerator()
+        {
+            yield return new object[] { new Fraction(2, 5), "2/5" };
+            yield return new object[] { new Fraction(7, 18), "7/18" };
+            yield return new object[] { new Fraction(2, 8), "1/4" };
+            yield return new object[] { new Fraction(9, 10), "9/10" };
+            yield return new object[] { new Fraction(8, 100), "2/25" };
+            yield return new object[] { new Fraction(5, 1), "5" };
+            yield return new object[] { new Fraction(87, 12), "7 1/4"};
+            yield return new object[] { new Fraction(-5, 15), "-1/3"};
+            yield return new object[] { new Fraction(15, -30), "-1/2"};
+            yield return new object[] { new Fraction(-5, -15), "1/3"};
+            yield return new object[] { new Fraction(-15, 3), "-5"};
+            yield return new object[] { new Fraction(-30, 8), "-3 3/4"};
         }
     }
 

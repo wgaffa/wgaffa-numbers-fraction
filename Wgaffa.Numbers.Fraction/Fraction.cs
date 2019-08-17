@@ -17,7 +17,7 @@ namespace Wgaffa.Numbers
 
             Sign = numerator < 0 ^ denominator < 0 ? -1 : 1;
 
-            Numerator = Math.Abs(numerator) * Sign;
+            Numerator = Math.Abs(numerator);
             Denominator = Math.Abs(denominator);
 
             var gcd = NumberTheory.GreatestCommonDivisor(Numerator, Denominator);
@@ -75,7 +75,16 @@ namespace Wgaffa.Numbers
 
         public override string ToString()
         {
-            return base.ToString();
+            var whole = Numerator / Denominator;
+            var sign = Sign < 0 ? "-" : string.Empty;
+
+            if (ProperNumerator == 0)
+                return $"{sign}{whole}";
+
+            if (whole == 0)
+                return $"{sign}{Numerator}/{Denominator}";
+            else
+                return $"{sign}{whole} {ProperNumerator}/{Denominator}";
         }
     }
 }
