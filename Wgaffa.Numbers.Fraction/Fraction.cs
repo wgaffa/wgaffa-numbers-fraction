@@ -63,9 +63,32 @@ namespace Wgaffa.Numbers
             return Equals(obj as Fraction);
         }
 
+        public static Fraction operator+(Fraction left, Fraction right)
+        {
+            var newDenominator = NumberTheory.LeastCommonMultiple(left.Denominator, right.Denominator);
+            var newNumerator = left.Numerator * newDenominator / left.Denominator
+                + right.Numerator * newDenominator / right.Denominator;
+
+            return new Fraction(newNumerator, newDenominator);
+        }
+
+        public static Fraction operator-(Fraction left, Fraction right)
+        {
+            var newDenominator = NumberTheory.LeastCommonMultiple(left.Denominator, right.Denominator);
+            var newNumerator = left.Numerator * newDenominator / left.Denominator
+                - right.Numerator * newDenominator / right.Denominator;
+
+            return new Fraction(newNumerator, newDenominator);
+        }
+
         public static explicit operator int(Fraction other)
         {
             return other.Numerator / other.Denominator;
+        }
+
+        public static implicit operator Fraction(int number)
+        {
+            return new Fraction(number);
         }
 
         public override int GetHashCode()
