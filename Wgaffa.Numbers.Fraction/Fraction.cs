@@ -5,11 +5,25 @@ namespace Wgaffa.Numbers
 {
     public class Fraction : IEquatable<Fraction>
     {
+        private Fraction _reciprocal;
+
         public int Sign { get; }
         public int Denominator { get; } = 1;
         public int Numerator { get; }
 
         public int ProperNumerator { get; }
+
+        public Fraction Reciprocal
+        {
+            get
+            {
+                if (_reciprocal != null)
+                    return _reciprocal;
+
+                _reciprocal = new Fraction(Denominator, Numerator);
+                return _reciprocal;
+            }
+        }
 
         public Fraction(int numerator, int denominator = 1)
         {
@@ -88,7 +102,7 @@ namespace Wgaffa.Numbers
 
         public static Fraction operator/(Fraction left, Fraction right)
         {
-            return left * new Fraction(right.Denominator, right.Numerator);
+            return left * right.Reciprocal;
         }
 
         public static explicit operator int(Fraction other)
