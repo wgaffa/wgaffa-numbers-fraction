@@ -1,5 +1,4 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
 
 namespace Wgaffa.Numbers
 {
@@ -27,7 +26,8 @@ namespace Wgaffa.Numbers
 
         public Fraction(int numerator, int denominator = 1)
         {
-            Guard.Against.Zero(denominator, nameof(denominator));
+            if (denominator == 0)
+                throw new ArgumentException(nameof(denominator));
 
             Sign = numerator < 0 ^ denominator < 0 ? -1 : 1;
 
