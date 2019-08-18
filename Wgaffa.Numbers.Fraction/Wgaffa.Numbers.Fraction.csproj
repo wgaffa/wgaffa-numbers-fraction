@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Wgaffa.Numbers</RootNamespace>
+    <Authors>wgaffa</Authors>
+    <Company>Wgaffa</Company>
+    <Description>A simple class for Fractions</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/wgaffa/wgaffa-numbers-fraction</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
