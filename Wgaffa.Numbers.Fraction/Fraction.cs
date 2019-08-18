@@ -3,7 +3,7 @@ using System;
 
 namespace Wgaffa.Numbers
 {
-    public class Fraction : IEquatable<Fraction>
+    public class Fraction : IEquatable<Fraction>, IComparable<Fraction>
     {
         private Fraction _reciprocal;
 
@@ -132,6 +132,15 @@ namespace Wgaffa.Numbers
                 return $"{sign}{Numerator}/{Denominator}";
             else
                 return $"{sign}{whole} {ProperNumerator}/{Denominator}";
+        }
+
+        public int CompareTo(Fraction other)
+        {
+            var lcm = NumberTheory.LeastCommonMultiple(Denominator, other.Denominator);
+            var leftNumerator = Numerator * lcm / Denominator;
+            var rightNumerator = other.Numerator * lcm / other.Denominator;
+
+            return leftNumerator.CompareTo(rightNumerator);
         }
     }
 }
