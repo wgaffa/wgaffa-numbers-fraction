@@ -117,7 +117,14 @@ namespace Wgaffa.Numbers
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                int hashCode = 17;
+                hashCode = hashCode * 223 + Numerator;
+                hashCode = hashCode * 223 + Denominator;
+
+                return hashCode;
+            }
         }
 
         public override string ToString()
