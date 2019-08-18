@@ -81,6 +81,16 @@ namespace Wgaffa.Numbers
             return new Fraction(newNumerator, newDenominator);
         }
 
+        public static Fraction operator*(Fraction left, Fraction right)
+        {
+            return new Fraction(left.Numerator * right.Numerator, left.Denominator * right.Denominator);
+        }
+
+        public static Fraction operator/(Fraction left, Fraction right)
+        {
+            return left * new Fraction(right.Denominator, right.Numerator);
+        }
+
         public static explicit operator int(Fraction other)
         {
             return other.Numerator / other.Denominator;
