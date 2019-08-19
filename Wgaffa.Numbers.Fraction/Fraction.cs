@@ -80,8 +80,8 @@ namespace Wgaffa.Numbers
         public static Fraction operator+(Fraction left, Fraction right)
         {
             var newDenominator = NumberTheory.LeastCommonMultiple(left.Denominator, right.Denominator);
-            var newNumerator = left.Numerator * newDenominator / left.Denominator
-                + right.Numerator * newDenominator / right.Denominator;
+            var newNumerator = left.Sign * left.Numerator * newDenominator / left.Denominator
+                + right.Sign * right.Numerator * newDenominator / right.Denominator;
 
             return new Fraction(newNumerator, newDenominator);
         }
@@ -89,15 +89,15 @@ namespace Wgaffa.Numbers
         public static Fraction operator-(Fraction left, Fraction right)
         {
             var newDenominator = NumberTheory.LeastCommonMultiple(left.Denominator, right.Denominator);
-            var newNumerator = left.Numerator * newDenominator / left.Denominator
-                - right.Numerator * newDenominator / right.Denominator;
+            var newNumerator = left.Sign * left.Numerator * newDenominator / left.Denominator
+                - right.Sign * right.Numerator * newDenominator / right.Denominator;
 
             return new Fraction(newNumerator, newDenominator);
         }
 
         public static Fraction operator*(Fraction left, Fraction right)
         {
-            return new Fraction(left.Numerator * right.Numerator, left.Denominator * right.Denominator);
+            return new Fraction(left.Sign * left.Numerator * right.Sign * right.Numerator, left.Denominator * right.Denominator);
         }
 
         public static Fraction operator/(Fraction left, Fraction right)
