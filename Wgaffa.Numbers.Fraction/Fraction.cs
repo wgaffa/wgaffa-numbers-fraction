@@ -36,7 +36,7 @@ namespace Wgaffa.Numbers
                 if (_reciprocal != null)
                     return _reciprocal;
 
-                _reciprocal = new Fraction(Denominator, Numerator);
+                _reciprocal = new Fraction(Sign * Denominator, Numerator);
                 return _reciprocal;
             }
         }
