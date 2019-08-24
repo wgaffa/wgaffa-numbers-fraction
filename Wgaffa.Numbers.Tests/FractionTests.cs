@@ -77,8 +77,8 @@ namespace Wgaffa.Numbers.Tests
             yield return new object[] { new Fraction(-5, 15), new int[] { 1, 3, 0, 1 } };
             yield return new object[] { new Fraction(15, -30), new int[] { 1, 2, 0, 1 } };
             yield return new object[] { new Fraction(-5, -15), new int[] { 1, 3, 0, 1 } };
-            yield return new object[] { new Fraction(-15, 3), new int[] { 5, 1, 5, 0 } };
-            yield return new object[] { new Fraction(-30, 8), new int[] { 15, 4, 3, 3 } };
+            yield return new object[] { new Fraction(-15, 3), new int[] { 5, 1, -5, 0 } };
+            yield return new object[] { new Fraction(-30, 8), new int[] { 15, 4, -3, 3 } };
         }
     }
 

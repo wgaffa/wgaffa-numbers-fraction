@@ -145,7 +145,7 @@ namespace Wgaffa.Numbers
 
         public static explicit operator int(Fraction other)
         {
-            return other.Numerator / other.Denominator;
+            return other.Sign * other.Numerator / other.Denominator;
         }
 
         public static implicit operator Fraction(int number)
