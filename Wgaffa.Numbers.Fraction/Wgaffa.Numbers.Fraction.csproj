@@ -12,8 +12,4 @@
     <Version>1.0.1</Version>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Ardalis.GuardClauses" Version="1.2.9" />
-  </ItemGroup>
-
 </Project>
