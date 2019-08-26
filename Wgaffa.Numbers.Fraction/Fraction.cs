@@ -6,12 +6,29 @@ namespace Wgaffa.Numbers
     {
         private Fraction _reciprocal;
 
+        /// <summary>
+        /// The sign of the fraction, -1 or 1.
+        /// </summary>
         public int Sign { get; }
+
+        /// <summary>
+        /// The denominator for the fraction.
+        /// </summary>
         public int Denominator { get; } = 1;
+
+        /// <summary>
+        /// The improper numerator for the fraction. See <see cref="ProperNumerator" /> for the proper numerator.
+        /// </summary>
         public int Numerator { get; }
 
+        /// <summary>
+        /// The proper numerator for the fraction. See <see cref="Numerator" /> for the improper numerator.
+        /// </summary>
         public int ProperNumerator { get; }
 
+        /// <summary>
+        /// Get the reciprocal fraction.
+        /// </summary>
         public Fraction Reciprocal
         {
             get
@@ -19,11 +36,19 @@ namespace Wgaffa.Numbers
                 if (_reciprocal != null)
                     return _reciprocal;
 
-                _reciprocal = new Fraction(Denominator, Numerator);
+                _reciprocal = new Fraction(Sign * Denominator, Numerator);
                 return _reciprocal;
             }
         }
 
+        /// <summary>
+        /// Create a new instance of <see cref="Fraction" /> with a numerator and denominator.
+        /// </summary>
+        /// <remarks>
+        /// When creating an instance of <see cref="Fraction" /> it will always be in its simplest form.
+        /// </remarks>
+        /// <param name="numerator">Numerator for the fraction.</param>
+        /// <param name="denominator">Denominator for the fraction.</param>
         public Fraction(int numerator, int denominator = 1)
         {
             if (denominator == 0)
@@ -44,6 +69,11 @@ namespace Wgaffa.Numbers
                 ProperNumerator = Numerator < Denominator ? Numerator : Numerator % Denominator;
         }
 
+        /// <summary>
+        /// Test for equality to another instance of <see cref="Fraction" />.
+        /// </summary>
+        /// <param name="other">The instance to test equality against.</param>
+        /// <returns>True if equal, otherwise false.</returns>
         public bool Equals(Fraction other)
         {
             if (ReferenceEquals(null, other))
@@ -57,6 +87,14 @@ namespace Wgaffa.Numbers
                 && Denominator == other.Denominator;
         }
 
+        /// <summary>
+        /// Test for equality against another object.
+        /// </summary>
+        /// <remarks>
+        /// This tests against integers and strings representing integers as well.
+        /// </remarks>
+        /// <param name="obj">The object to test equality against.</param>
+        /// <returns>True if equal, otherwise false.</returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj))
@@ -80,8 +118,8 @@ namespace Wgaffa.Numbers
         public static Fraction operator+(Fraction left, Fraction right)
         {
             var newDenominator = NumberTheory.LeastCommonMultiple(left.Denominator, right.Denominator);
-            var newNumerator = left.Numerator * newDenominator / left.Denominator
-                + right.Numerator * newDenominator / right.Denominator;
+            var newNumerator = left.Sign * left.Numerator * newDenominator / left.Denominator
+                + right.Sign * right.Numerator * newDenominator / right.Denominator;
 
             return new Fraction(newNumerator, newDenominator);
         }
@@ -89,15 +127,15 @@ namespace Wgaffa.Numbers
         public static Fraction operator-(Fraction left, Fraction right)
         {
             var newDenominator = NumberTheory.LeastCommonMultiple(left.Denominator, right.Denominator);
-            var newNumerator = left.Numerator * newDenominator / left.Denominator
-                - right.Numerator * newDenominator / right.Denominator;
+            var newNumerator = left.Sign * left.Numerator * newDenominator / left.Denominator
+                - right.Sign * right.Numerator * newDenominator / right.Denominator;
 
             return new Fraction(newNumerator, newDenominator);
         }
 
         public static Fraction operator*(Fraction left, Fraction right)
         {
-            return new Fraction(left.Numerator * right.Numerator, left.Denominator * right.Denominator);
+            return new Fraction(left.Sign * left.Numerator * right.Sign * right.Numerator, left.Denominator * right.Denominator);
         }
 
         public static Fraction operator/(Fraction left, Fraction right)
@@ -107,7 +145,7 @@ namespace Wgaffa.Numbers
 
         public static explicit operator int(Fraction other)
         {
-            return other.Numerator / other.Denominator;
+            return other.Sign * other.Numerator / other.Denominator;
         }
 
         public static implicit operator Fraction(int number)
@@ -141,6 +179,11 @@ namespace Wgaffa.Numbers
                 return $"{sign}{whole} {ProperNumerator}/{Denominator}";
         }
 
+        /// <summary>
+        /// Compare the <see cref="Fraction" /> with another fraction.
+        /// </summary>
+        /// <param name="other">The <see cref="Fraction" /> to compare against.</param>
+        /// <returns>-1 if it is less, 0 if equal, 1 if it is greater.</returns>
         public int CompareTo(Fraction other)
         {
             var lcm = NumberTheory.LeastCommonMultiple(Denominator, other.Denominator);
